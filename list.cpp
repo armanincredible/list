@@ -17,6 +17,8 @@ static int list_resize (List *list);
 
 static int size_cmp_resize (List *list);
 
+static int list_verificate (List* list);
+
 int list_ctor (List* list)
 {
     CHECK_ERROR_(list, "NULL ADRESS", -1);
@@ -167,42 +169,33 @@ static int list_resize (List *list)
     
     list->capacity = list->capacity * 2;
 
-    $
-
     list->data = (value_t*) realloc ((void*)list->data, list->capacity * sizeof (value_t));
-    /*CHECK_ERROR_(list->data, "NULL ADRESS (haven't memory) ", -1);*/
-
-    $
+    CHECK_ERROR_(list->data, "NULL ADRESS (haven't memory) ", -1);
 
     list->next = (int*) realloc ((void*)list->next, list->capacity * sizeof (int));
-    /*CHECK_ERROR_(list->next, "NULL ADRESS (haven't memory) ", -1);*/
-
-    $
+    CHECK_ERROR_(list->next, "NULL ADRESS (haven't memory) ", -1);
 
     list->prev = (int*) realloc ((void*)list->prev, list->capacity * sizeof (int));
-    /*CHECK_ERROR_(list->next, "NULL ADRESS (haven't memory) ", -1);*/
+    CHECK_ERROR_(list->next, "NULL ADRESS (haven't memory) ", -1);
 
-    $
-
-    for (int i = list->size; i < list->capacity; i++)
+    for (int i = list->size + 1; i < list->capacity; i++)
     {
         list->next[i] = i + 1;
     }
     list->next[list->capacity - 1] = 0;
+
+    memset ((void*)(list->data + list->size + 1), 0, (list->capacity - list->size - 1) * sizeof (value_t));
+
+    memset ((void*)(list->prev + list->size + 1), 0, (list->capacity - list->size - 1) * sizeof (int));
 
     return 0;
 }
 
 static int size_cmp_resize (List* list)
 {
-    printf ("size = %d capacity = %d \n", list->size, list->capacity);
     CHECK_ERROR_(list, "NULL ADRESS", -1);
 
-    /*printf ("HERE\n"
-            "SIZE = %d\n"
-            "CAPACITY = %d\n", list->size, list->capacity);*/
-
-    if (list->size > list->capacity)
+     if (list->size >= list->capacity - 1)
     {
         list_resize(list);
     }
@@ -211,8 +204,10 @@ static int size_cmp_resize (List* list)
 
 int list_dump (List* list)
 {
+    CHECK_ERROR_(list, "NULL ADRESS", -1);
+
     FILE* output_file = fopen ("../list/list_dump.dot", "w");
-    CHECK_ERROR_(list, "NOT CREATED", -1);
+    CHECK_ERROR_(output_file, "NOT CREATED", -1);
 
     fprintf (output_file, "\tdigraph dump_graph{\n"
                           "\trankdir=HR;\n");
@@ -261,7 +256,11 @@ int list_dump (List* list)
     system ("\"C:/Program Files/Graphviz/bin/dot.exe\" -Tpng list_dump.dot -o graph.png");
 
     return 0;
+}
 
+static int list_verificate (List* list)
+{
+    CHECK_ERROR_(list, "NULL ADRESS", -1);
 }
 
 #undef $
