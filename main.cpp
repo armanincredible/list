@@ -15,9 +15,9 @@
 
 int main ()
 {
-    List list = {0, 0, 0, 0, 0};
+    List list = {0, 0, 0, 0, 0, 0, 0, 0};
     list_ctor (&list);
-    for (int i = 1; i < 8; i++)
+    for (int i = 1; i < 10; i++)
     {
         list_end_push (i, &list);
     }
@@ -28,11 +28,15 @@ int main ()
 
     list_delete (5, &list);
 
+    printf ("num : ");
+
     for (int i = 0; i < 10; i++)
     {
         printf ("%d\t\t", i);
     }
     printf ("\n");
+
+    printf ("val : ");
 
     for (int i = 0; i < 10; i++)
     {
@@ -40,13 +44,15 @@ int main ()
     }
     printf ("\n");
 
-    printf ("%d\t\t", 0);
+    printf ("nex : ");
 
-    for (int i = 1; i < 10; i++)
+    for (int i = 0; i < 10; i++)
     {
         printf ("%d\t\t", list.next[i]);
     }
     printf ("\n");
+
+    printf ("pre : ");
 
     for (int i = 0; i < 10; i++)
     {
@@ -54,8 +60,11 @@ int main ()
     }
     printf ("\n");
     printf ("head = %d\n"
-            "tail = %d\n", 
-            list.head, list.tail);
+            "tail = %d\n"
+            "free = %d\n",
+            list.head, list.tail, list.free);
+
+    list_dump (&list);
     
 
     /*list_dtor (&list);*/
