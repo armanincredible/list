@@ -1,2 +1,2 @@
 all:
-	g++ -O2 main.cpp list.cpp -o list 
+	g++ -O2 -Wall -Wextra  main.cpp list.cpp -o list 
