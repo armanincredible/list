@@ -28,6 +28,8 @@ int main ()
 
     list_delete (5, &list);
 
+    /*list_delete (8, &list);*/
+
     printf ("num : ");
 
     for (int i = 0; i < 10; i++)
