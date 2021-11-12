@@ -1,6 +1,5 @@
 #include "list.h"
 
-
 #define CHECK_ERROR_(name, type_error, ret)                                             \
         do{                                                                             \
             if (name == NULL)                                                           \
@@ -15,12 +14,13 @@
 
 int main ()
 {
-    List list = {0, 0, 0, 0, 0};
+    List list = {0, 0, 0, 0, 0, 0, 0, 0};
     list_ctor (&list);
-    for (int i = 1; i < 8; i++)
+    for (int i = 1; i < 10; i++)
     {
         list_end_push (i, &list);
     }
+
 
     list_start_push(20, &list);
 
@@ -28,39 +28,12 @@ int main ()
 
     list_delete (5, &list);
 
-    for (int i = 0; i < 10; i++)
-    {
-        printf ("%d\t\t", i);
-    }
-    printf ("\n");
+    list_delete (8, &list);
 
-    for (int i = 0; i < 10; i++)
-    {
-        printf ("%d\t\t", *(list.data + i));
-    }
-    printf ("\n");
-
-    printf ("%d\t\t", 0);
-
-    for (int i = 1; i < 10; i++)
-    {
-        printf ("%d\t\t", list.next[i]);
-    }
-    printf ("\n");
-
-    for (int i = 0; i < 10; i++)
-    {
-        printf ("%d\t\t", list.prev[i]);
-    }
-    printf ("\n");
-    printf ("head = %d\n"
-            "tail = %d\n", 
-            list.head, list.tail);
+    list_dump (&list);
     
 
-    /*list_dtor (&list);*/
-    
-
+    list_dtor (&list);
 
     return 0;
 }

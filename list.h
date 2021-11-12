@@ -14,19 +14,22 @@ struct List
     int free;
     int head;
     int tail;
+    int size;
+    int capacity;
 };
 
-const int SIZE_LIST_DATA = 10;
-const int SIZE_FREE = 10;
+const int BASIC_SIZE_LIST = 5;
 
-int list_ctor (List* list);
+int     list_ctor           (List* list);
 
-int list_dtor (List* list);
+int     list_dtor           (List* list);
 
-int list_end_push (value_t value, List* list);
+int     list_end_push       (value_t value, List* list);
 
-int list_start_push (value_t value, List* list);
+int     list_start_push     (value_t value, List* list);
 
-int list_between_push (value_t value, int ptr, List* list);
+int     list_between_push   (value_t value, int ptr, List* list);
 
-int list_delete (int ptr, List* list);
+int     list_delete         (int ptr, List* list);
+
+int     list_dump           (List* list);
