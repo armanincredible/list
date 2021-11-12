@@ -1,0 +1,100 @@
+/*int list_end_push (value_t value, List* list)
+{
+    CHECK_ERROR_(list, "NULL ADRESS", -1);
+
+    _VERIFICATE_;
+
+    size_cmp_resize (list);
+
+    int save_next_of_free = list->next[list->free];
+
+    list->data[list->free] = value;
+
+    list->next[list->tail] = list->free;
+    list->prev[list->free] = list->tail;
+    if (list->tail == 1)
+    {
+        list->prev[list->head] = 0;
+    }
+    
+    list->tail = list->free;
+    list->next[list->tail] = 0;
+
+    if (save_next_of_free != 0)
+    {
+        list->free = save_next_of_free;
+    }
+    list->size = list->size + 1;
+
+    _VERIFICATE_;
+
+    return 0;
+    
+}
+
+int list_start_push (value_t value, List* list)
+{
+    CHECK_ERROR_(list, "NULL ADRESS", -1);
+
+    _VERIFICATE_;
+
+    size_cmp_resize (list);
+
+    int save_next_of_free = list->next[list->free];
+
+    list->data[list->free] = value;
+
+    if (list->size > 0)
+    {
+        list->next[list->free] = list->head;
+        list->prev[list->head] = list->free;
+    }
+    else 
+    {
+        list->next[list->free] = 0;
+        list->prev[list->head] = 0;
+    }
+
+    list->prev[list->free] = 0;
+
+    list->head = list->free;
+
+    if (save_next_of_free != 0)
+    {
+        list->free = save_next_of_free;
+    }
+    list->size = list->size + 1;
+
+    _VERIFICATE_;
+
+    return 0;
+}
+
+int list_between_push (value_t value, int ptr, List* list)
+{
+    CHECK_ERROR_(list, "NULL ADRESS", -1);
+
+    _VERIFICATE_;
+
+    size_cmp_resize (list);
+
+    int save_next_of_free = list->next[list->free];
+
+    list->next[list->free] = list->next[ptr];
+    list->prev[list->free] = ptr;
+    list->data[list->free] = value;
+
+    list->prev[list->next[ptr]] = list->free;
+
+    list->next[ptr] = list->free;
+
+    if (save_next_of_free != 0)
+    {
+        list->free = save_next_of_free;
+    }
+    list->size = list->size + 1;
+
+    _VERIFICATE_;
+
+    return 0;
+}*/
