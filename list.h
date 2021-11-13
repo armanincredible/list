@@ -14,19 +14,58 @@ struct List
     int free;
     int head;
     int tail;
+    int size;
+    int capacity;
+    const char* error;
 };
 
-const int SIZE_LIST_DATA = 10;
-const int SIZE_FREE = 10;
+enum Errors
+{
+    NO_ERROR,
+    TAIL_VAL_ERROR,
+    HEAD_VAL_ERROR,
+    SIZE_VAL_ERROR,
+    FREE_VAL_ERROR,
+    CAPACITY_VAL_ERROR,
+    LIST_PTR_ERROR,
+    PREV_PTR_ERROR,
+    NEXT_PTR_ERROR,
+    DATA_PTR_ERROR,
+    NEXT_DATA_VAL_ERROR,
+    NEXT_FREE_VAL_ERROR,
+    PREV_VAL_ERROR,
+    NEXT_PREV_VAL_ERROR
+};
 
-int list_ctor (List* list);
+#define DEF_CMD(num, name, ...) name = num,
 
-int list_dtor (List* list);
+enum push_types
+{
+    #include "push.def"
+};
 
-int list_end_push (value_t value, List* list);
+#undef DEF_CMD
 
-int list_start_push (value_t value, List* list);
+const int BASIC_SIZE_LIST = 5;
 
-int list_between_push (value_t value, int ptr, List* list);
+int     list_ctor           (List* list);
 
-int list_delete (int ptr, List* list);
+int     list_dtor           (List* list);
+
+int     list_end_push       (value_t value, List* list);
+
+int     list_start_push     (value_t value, List* list);
+
+int     list_between_push   (value_t value, int ptr, List* list);
+
+int     list_delete         (int ptr, List* list);
+
+int     list_linearise      (List* list);
+
+int     list_push           (int type, value_t value, int ptr, List* list);
+
+/*int     list_end_push       (value_t value, List* list);
+
+int     list_start_push     (value_t value, List* list);
+
+int     list_between_push   (value_t value, int ptr, List* list);*/
