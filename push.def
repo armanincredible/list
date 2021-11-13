@@ -1,0 +1,40 @@
+DEF_CMD (1, END, 
+    list->data[list->free] = value;
+
+    list->next[list->tail] = list->free;
+    list->prev[list->free] = list->tail;
+    if (list->tail == 1)
+    {
+        list->prev[list->head] = 0;
+    }
+    
+    list->tail = list->free;
+    list->next[list->tail] = 0;)
+
+DEF_CMD (2, START,
+    list->data[list->free] = value;
+
+    if (list->size > 0)
+    {
+        list->next[list->free] = list->head;
+        list->prev[list->head] = list->free;
+    }
+    else 
+    {
+        list->next[list->free] = 0;
+        list->prev[list->head] = 0;
+    }
+
+    list->prev[list->free] = 0;
+
+    list->head = list->free;
+    )
+
+DEF_CMD (3, BETWEEN,
+    list->next[list->free] = list->next[ptr];
+    list->prev[list->free] = ptr;
+    list->data[list->free] = value;
+
+    list->prev[list->next[ptr]] = list->free;
+
+    list->next[ptr] = list->free;)
